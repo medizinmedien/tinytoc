@@ -169,7 +169,11 @@ class tiny_toc {
     }
     $text = $xpath->query('/html/body');
     $text = $dom->saveHTML($text->item(0));
-    $content = $text; // FS: Hier wird der Content ueberschrieben!
+
+    // FS: Quick fix - body element not removed yet:
+    $text = str_replace( array( '<body>', '</body>' ), '', $text );
+
+    $content = $text; // FS: Hier wird *jeder* Content-Bereich ueberschrieben :-(
     return $items;
   }
 
